@@ -1,0 +1,302 @@
+<!DOCTYPE html><html lang="th"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>ระบบบริหารจัดการเวลาทำงาน - ลงเวลา</title>
+<!-- Google Fonts: Inter -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet">
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface": "#191c1e",
+                        "primary": "#003d9b",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary-container": "#76e2ff",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed": "#afecff",
+                        "secondary-container": "#d6e3fc",
+                        "on-error-container": "#93000a",
+                        "surface-container": "#edeef0",
+                        "on-primary-fixed-variant": "#0040a2",
+                        "on-primary": "#ffffff",
+                        "secondary-fixed": "#d6e3fc",
+                        "surface-dim": "#d9dadc",
+                        "on-secondary-container": "#58657a",
+                        "on-tertiary-fixed-variant": "#004e5d",
+                        "on-error": "#ffffff",
+                        "inverse-on-surface": "#f0f1f3",
+                        "error": "#ba1a1a",
+                        "surface-container-highest": "#e1e2e4",
+                        "outline-variant": "#c3c6d6",
+                        "inverse-surface": "#2e3132",
+                        "primary-container": "#0052cc",
+                        "on-surface-variant": "#434654",
+                        "on-primary-fixed": "#001848",
+                        "on-tertiary-fixed": "#001f27",
+                        "surface-tint": "#0c56d0",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-container": "#c4d2ff",
+                        "primary-fixed-dim": "#b2c5ff",
+                        "surface-bright": "#f8f9fb",
+                        "surface-variant": "#e1e2e4",
+                        "secondary-fixed-dim": "#bac7df",
+                        "primary-fixed": "#dae2ff",
+                        "tertiary-fixed-dim": "#48d7f9",
+                        "on-secondary-fixed-variant": "#3b475b",
+                        "outline": "#737685",
+                        "on-secondary-fixed": "#0f1c2e",
+                        "surface": "#f8f9fb",
+                        "secondary": "#525f74",
+                        "inverse-primary": "#b2c5ff",
+                        "tertiary-container": "#006477",
+                        "tertiary": "#004b59",
+                        "surface-container-high": "#e7e8ea",
+                        "background": "#f8f9fb",
+                        "on-background": "#191c1e",
+                        "surface-container-low": "#f3f4f6"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "lg": "24px",
+                        "xl": "32px",
+                        "md": "16px",
+                        "xs": "4px",
+                        "base": "8px",
+                        "margin-mobile": "16px",
+                        "sm": "12px",
+                        "gutter": "20px",
+                        "margin-desktop": "40px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "title-md": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "headline-lg": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "title-md": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "display-lg": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .scanner-line {
+            animation: scan 2s infinite linear;
+        }
+        @keyframes scan {
+            0% { top: 0; opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { top: 100%; opacity: 0; }
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex overflow-hidden">
+<!-- Desktop SideNavBar -->
+<nav class="hidden md:flex bg-surface border-r border-outline-variant h-screen w-64 flex-col fixed left-0 top-0 p-md gap-base z-40">
+<!-- Brand -->
+<div class="mb-lg px-xs py-md">
+<h1 class="font-headline-lg text-headline-lg font-black text-primary truncate">HR</h1>
+<p class="font-label-sm text-label-sm text-on-surface-variant truncate">Enterprise HRMS</p>
+</div>
+<!-- Main Tabs -->
+<div class="flex flex-col gap-xs flex-1">
+<!-- Inactive Tab -->
+<a class="flex items-center gap-md p-sm text-on-surface-variant hover:bg-surface-container-high rounded-lg font-label-sm text-label-sm hover:translate-x-1 transition-all duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+                หน้าหลัก
+            </a>
+<!-- Active Tab -->
+<a class="flex items-center gap-md p-sm bg-secondary-container text-on-secondary-container rounded-lg font-bold font-label-sm text-label-sm hover:translate-x-1 transition-all duration-200" href="#">
+<span class="material-symbols-outlined">schedule</span>
+                ลงเวลาเข้าทำงาน
+            </a>
+</div>
+<!-- Footer Tabs -->
+<div class="flex flex-col gap-xs mt-auto pt-md border-t border-outline-variant">
+<a class="flex items-center gap-md p-sm text-on-surface-variant hover:bg-surface-container-high rounded-lg font-label-sm text-label-sm hover:translate-x-1 transition-all duration-200" href="#">
+<span class="material-symbols-outlined">settings</span>
+                ตั้งค่า
+            </a>
+<a class="flex items-center gap-md p-sm text-on-surface-variant hover:bg-surface-container-high rounded-lg font-label-sm text-label-sm hover:translate-x-1 transition-all duration-200" href="#">
+<span class="material-symbols-outlined">logout</span>
+                ออกจากระบบ
+            </a>
+</div>
+</nav>
+<!-- Main Content Wrapper -->
+<div class="flex-1 flex flex-col md:ml-64 w-full min-h-screen relative">
+<!-- TopNavBar (Mobile mainly, but present as per JSON for structure) -->
+<header class="bg-surface-container-lowest w-full h-16 border-b border-outline-variant shadow-sm flex justify-between items-center px-lg sticky top-0 z-50">
+<div class="font-title-md text-title-md font-bold text-primary md:hidden">
+                ระบบบริหารจัดการเวลาทำงาน
+            </div>
+<!-- Empty div for desktop alignment since title is hidden on md+ -->
+<div class="hidden md:block"></div>
+<div class="flex items-center gap-sm">
+<button class="p-xs text-on-surface-variant hover:bg-surface-container transition-colors rounded-full cursor-pointer active:scale-95 transition-all">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-xs text-on-surface-variant hover:bg-surface-container transition-colors rounded-full cursor-pointer active:scale-95 transition-all">
+<span class="material-symbols-outlined">help</span>
+</button>
+<div class="w-8 h-8 rounded-full bg-surface-container-highest overflow-hidden ml-sm border border-outline-variant">
+<img alt="รูปโปรไฟล์ผู้ดูแลระบบ" class="w-full h-full object-cover" data-alt="Professional headshot of a corporate IT administrator, confident expression, soft lighting, modern office background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDcacAQwmf0zBhDx66R9cMhMzsXIfg6T9UsXjQTU3nbBN0UsERlZ2KbUNXkpExYLlm23SL5xRPonTW1ef9DATwmv1FcTwSZlefOefQ-0RfqGpLb_WY0v9lbZef6EN3JzdOnRlQOWxQCGxJghxTTdWUuevfAlHBSd42A8TKO8Uxh7EKC3DGPsqiwhY0XG9l-V7xSV84hZzANbFLuOIaZbGgRr-esQyo4CJY-lBwluh5203LF3_Ue4m-a">
+</div>
+</div>
+</header>
+<!-- Main Canvas -->
+<main class="flex-1 p-margin-mobile md:p-gutter lg:p-margin-desktop overflow-y-auto">
+<div class="max-w-7xl mx-auto">
+<div class="mb-lg">
+<h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface">บันทึกเวลาปฏิบัติงาน</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-xs">กรุณากรอกข้อมูลพนักงานเพื่อบันทึกเวลาปฏิบัติงาน</p>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-lg">
+<!-- Left Column: Clock & Scanner (7 cols) -->
+<div class="lg:col-span-7 flex flex-col gap-lg">
+<!-- Digital Clock Card -->
+<div class="bg-surface-container-lowest rounded-xl p-lg shadow-[0px_4px_12px_rgba(0,82,204,0.05)] border border-outline-variant flex flex-col items-center justify-center text-center py-xl">
+<div class="font-display-lg text-display-lg text-primary tracking-tight" id="digital-clock">15:20:11</div>
+<div class="font-title-md text-title-md text-secondary mt-xs" id="digital-date">วันที่ 5 สิงหาคม พ.ศ. 2569</div>
+</div>
+<!-- Scanner Area Card -->
+<div class="bg-surface-container-lowest rounded-xl p-lg shadow-[0px_4px_12px_rgba(0,82,204,0.05)] border border-outline-variant flex-1 flex flex-col">
+<div class="flex justify-between items-center mb-md">
+<h3 class="font-title-md text-title-md text-on-surface flex items-center gap-sm"><span class="material-symbols-outlined text-primary">edit_note</span> กรอกข้อมูลพนักงาน (Manual Input)</h3>
+</div>
+<!-- Viewfinder / Camera Simulation -->
+<div class="space-y-lg p-md bg-surface-container-low rounded-lg border border-outline-variant">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+<div>
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-xs">รหัสพนักงาน (Employee ID)</label>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg p-sm font-body-md text-body-md text-on-surface focus:ring-2 focus:ring-primary focus:outline-none transition-shadow" placeholder="ระบุรหัสพนักงาน" type="text">
+</div>
+<div>
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-xs">ชื่อ-นามสกุล (Full Name)</label>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg p-sm font-body-md text-body-md text-on-surface focus:ring-2 focus:ring-primary focus:outline-none transition-shadow" placeholder="ระบุชื่อ-นามสกุล" type="text">
+</div>
+</div>
+<div class="flex justify-end">
+<button class="bg-primary hover:bg-primary-container text-on-primary font-title-md py-sm px-lg rounded-lg flex items-center gap-sm transition-all active:scale-95">
+<span class="material-symbols-outlined">search</span>
+            ตรวจสอบข้อมูล
+        </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Employee Info & Actions (5 cols) -->
+<div class="lg:col-span-5 flex flex-col gap-lg">
+<!-- Employee Info Card (Simulated Fill) -->
+<div class="bg-surface-container-lowest rounded-xl p-lg shadow-[0px_4px_12px_rgba(0,82,204,0.05)] border border-outline-variant">
+<h3 class="font-title-md text-title-md text-on-surface mb-md">ข้อมูลพนักงาน</h3>
+<div class="flex items-start gap-md mb-lg">
+<div class="w-16 h-16 rounded-full bg-surface-container-highest overflow-hidden border-2 border-primary-container shrink-0">
+<!-- Image would appear after scan, showing placeholder for now -->
+<span class="material-symbols-outlined w-full h-full flex items-center justify-center text-outline text-3xl">person</span>
+</div>
+<div class="flex-1">
+<!-- Status Message -->
+<div class="bg-secondary-container text-on-secondary-container p-sm rounded border border-secondary-fixed-dim font-label-sm text-label-sm flex items-center gap-sm">
+<span class="material-symbols-outlined" style="font-size: 18px;">info</span>
+                                        รอรับข้อมูลจากการสแกน...
+                                    </div>
+</div>
+</div>
+<div class="space-y-md">
+<div>
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-xs">รหัสพนักงาน (Employee ID)</label>
+<input class="w-full bg-surface-container-low border border-outline-variant rounded-lg p-sm font-body-md text-body-md text-on-surface focus:ring-2 focus:ring-primary focus:outline-none transition-shadow cursor-not-allowed" placeholder="---" readonly="" type="text">
+</div>
+<div>
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-xs">ชื่อ-นามสกุล (Name)</label>
+<input class="w-full bg-surface-container-low border border-outline-variant rounded-lg p-sm font-body-md text-body-md text-on-surface focus:ring-2 focus:ring-primary focus:outline-none transition-shadow cursor-not-allowed" placeholder="---" readonly="" type="text">
+</div>
+<div>
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-xs">แผนก (Department)</label>
+<input class="w-full bg-surface-container-low border border-outline-variant rounded-lg p-sm font-body-md text-body-md text-on-surface focus:ring-2 focus:ring-primary focus:outline-none transition-shadow cursor-not-allowed" placeholder="---" readonly="" type="text">
+</div>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="bg-surface-container-lowest rounded-xl p-lg shadow-[0px_4px_12px_rgba(0,82,204,0.05)] border border-outline-variant flex-1 flex flex-col justify-end">
+<p class="font-body-sm text-sm text-on-surface-variant mb-md text-center">โปรดตรวจสอบข้อมูลให้ถูกต้องก่อนบันทึกเวลา</p>
+<div class="grid grid-cols-2 gap-md">
+<button class="bg-primary hover:bg-primary-container text-on-primary font-title-md text-title-md py-sm px-md rounded-lg flex flex-col items-center justify-center min-h-[80px] shadow-sm transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed">
+<span class="material-symbols-outlined mb-xs">login</span>
+                                    บันทึกเข้า
+                                </button>
+<button class="bg-error hover:bg-on-error-container text-on-error font-title-md text-title-md py-sm px-md rounded-lg flex flex-col items-center justify-center min-h-[80px] shadow-sm transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed">
+<span class="material-symbols-outlined mb-xs">logout</span>
+                                    บันทึกออก
+                                </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Mobile BottomNavBar (Visible only on md- according to layout rules, but sidebar handles desktop. Let's add it for strict compliance if needed, but the prompt emphasizes the canvas. I'll omit to keep code clean and focus on the requested check-in interface, as top nav is already present). -->
+</main>
+</div>
+<!-- Script for real-time clock -->
+<script>
+        function updateClock() {
+            const now = new Date();
+            
+            // Time
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            document.getElementById('digital-clock').textContent = `${hours}:${minutes}:${seconds}`;
+            
+            // Date (Thai format)
+            const thaiMonths = [
+                "มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน",
+                "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"
+            ];
+            const day = now.getDate();
+            const month = thaiMonths[now.getMonth()];
+            const year = now.getFullYear() + 543; // Buddhist Era
+            
+            document.getElementById('digital-date').textContent = `วันที่ ${day} ${month} พ.ศ. ${year}`;
+        }
+
+        // Init and set interval
+        updateClock();
+        setInterval(updateClock, 1000);
+    </script>
+
+
+</body></html>
