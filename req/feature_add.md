@@ -1,13 +1,14 @@
 # Feature :: พนักงานลงเวลาทำงาน
 
 ## User flow
-1. พนักงานกรอกข้อมูล Employee ID หรือ username ของตนเอง
-2. ทำการค้นหาข้อมูลใน database
-3. ดึงข้อมูลพนักงานขึ้นมาแสดงผล
+1. User open web url = http://localhost:3000
+2. พนักงานกรอกข้อมูล Employee ID หรือ username ของตนเอง
+3. ทำการค้นหาข้อมูลใน database
+4. ดึงข้อมูลพนักงานขึ้นมาแสดงผล
    * รหัสพนักงาน (Employee ID)
    * ชื่อ-นามสกุล (Full Name)
    * แผนก (Department)
-4. พนักงานทำงานกดปุ่ม "ลงเวลา" เพื่อบันทึกเวลาทำงาน
+5. พนักงานทำงานกดปุ่ม "ลงเวลา" เพื่อบันทึกเวลาทำงาน
 
 ## User Interface
 * User mockup html from file `@page01.html`
