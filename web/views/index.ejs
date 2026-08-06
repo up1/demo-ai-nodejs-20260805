@@ -1,0 +1,110 @@
+<%- include('layout') %>
+<div class="mb-lg">
+  <h2 class="text-2xl md:text-3xl font-semibold text-on-surface">บันทึกเวลาปฏิบัติงาน</h2>
+  <p class="text-sm text-on-surface-variant mt-xs">กรุณากรอกข้อมูลพนักงานเพื่อบันทึกเวลาปฏิบัติงาน</p>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-lg">
+  <!-- Left: search form -->
+  <div class="lg:col-span-7 flex flex-col gap-lg">
+    <div class="bg-surface-container-lowest rounded-xl p-lg shadow border border-outline-variant">
+      <h3 class="text-lg font-semibold text-on-surface flex items-center gap-sm mb-md">
+        <span class="material-symbols-outlined text-primary">edit_note</span>
+        กรอกข้อมูลพนักงาน
+      </h3>
+      <form action="/search" method="POST" class="space-y-md p-md bg-surface-container-low rounded-lg border border-outline-variant">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+          <div>
+            <label class="block text-xs text-on-surface-variant mb-xs">รหัสพนักงาน (Employee ID)</label>
+            <input
+              data-testid="employee-id-input"
+              name="employeeId"
+              type="text"
+              value="<%= formValues.employeeId %>"
+              placeholder="ระบุรหัสพนักงาน"
+              class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg p-sm text-sm text-on-surface focus:ring-2 focus:ring-primary focus:outline-none"
+            >
+            <% if (errors.employeeId) { %>
+              <p data-testid="employee-id-error" class="text-error text-xs mt-xs"><%= errors.employeeId %></p>
+            <% } %>
+          </div>
+          <div>
+            <label class="block text-xs text-on-surface-variant mb-xs">ชื่อ-นามสกุล (Full Name)</label>
+            <input
+              data-testid="fullname-input"
+              name="fullName"
+              type="text"
+              value="<%= formValues.fullName %>"
+              placeholder="ระบุชื่อ-นามสกุล"
+              class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg p-sm text-sm text-on-surface focus:ring-2 focus:ring-primary focus:outline-none"
+            >
+            <% if (errors.fullName) { %>
+              <p data-testid="fullname-error" class="text-error text-xs mt-xs"><%= errors.fullName %></p>
+            <% } %>
+          </div>
+        </div>
+        <div class="flex justify-end">
+          <button data-testid="search-button" type="submit" class="bg-primary hover:bg-primary-container text-on-primary font-semibold py-sm px-lg rounded-lg flex items-center gap-sm">
+            <span class="material-symbols-outlined">search</span>
+            ตรวจสอบข้อมูล
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Right: employee info + actions -->
+  <div class="lg:col-span-5 flex flex-col gap-lg">
+    <div class="bg-surface-container-lowest rounded-xl p-lg shadow border border-outline-variant">
+      <h3 class="text-lg font-semibold text-on-surface mb-md">ข้อมูลพนักงาน</h3>
+
+      <% if (message) { %>
+        <div data-testid="success-message" class="bg-secondary-container text-on-secondary-container p-sm rounded border border-outline-variant text-sm mb-md flex items-center gap-sm">
+          <span class="material-symbols-outlined" style="font-size: 18px;">check_circle</span>
+          <%= message %>
+        </div>
+      <% } else if (!employee) { %>
+        <div class="bg-surface-container text-on-surface-variant p-sm rounded border border-outline-variant text-sm mb-md flex items-center gap-sm">
+          <span class="material-symbols-outlined" style="font-size: 18px;">info</span>
+          รอรับข้อมูลจากการค้นหา...
+        </div>
+      <% } %>
+
+      <div class="space-y-md">
+        <div>
+          <label class="block text-xs text-on-surface-variant mb-xs">รหัสพนักงาน (Employee ID)</label>
+          <input data-testid="result-employee-id" type="text" readonly value="<%= employee ? employee.employee_id : '---' %>"
+            class="w-full bg-surface-container-low border border-outline-variant rounded-lg p-sm text-sm text-on-surface cursor-not-allowed">
+        </div>
+        <div>
+          <label class="block text-xs text-on-surface-variant mb-xs">ชื่อ-นามสกุล (Full Name)</label>
+          <input data-testid="result-fullname" type="text" readonly value="<%= employee ? employee.full_name : '---' %>"
+            class="w-full bg-surface-container-low border border-outline-variant rounded-lg p-sm text-sm text-on-surface cursor-not-allowed">
+        </div>
+        <div>
+          <label class="block text-xs text-on-surface-variant mb-xs">แผนก (Department)</label>
+          <input data-testid="result-department" type="text" readonly value="<%= employee ? employee.department : '---' %>"
+            class="w-full bg-surface-container-low border border-outline-variant rounded-lg p-sm text-sm text-on-surface cursor-not-allowed">
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-surface-container-lowest rounded-xl p-lg shadow border border-outline-variant">
+      <form action="/checkin" method="POST">
+        <input type="hidden" name="employeeId" value="<%= employee ? employee.employee_id : '' %>">
+        <input type="hidden" name="fullName" value="<%= employee ? employee.full_name : '' %>">
+        <button data-testid="checkin-button" type="submit" <%= employee ? '' : 'disabled' %>
+          class="w-full bg-primary hover:bg-primary-container text-on-primary font-semibold py-sm px-md rounded-lg flex items-center justify-center gap-sm min-h-[56px] disabled:opacity-50 disabled:cursor-not-allowed">
+          <span class="material-symbols-outlined">schedule</span>
+          ลงเวลา
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+
+</div>
+</main>
+</div>
+</body>
+</html>

@@ -1,0 +1,10 @@
+{
+	"servers": {
+		"tokensave": {
+			"type": "stdio",
+			"command": "tokensave",
+			"args": []
+		}
+	},
+	"inputs": []
+}
