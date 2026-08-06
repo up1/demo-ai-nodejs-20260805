@@ -14,8 +14,11 @@ description: Browser automation testing skill using Playwright for UI testing
 ```
 tests/
   ├── features/
-  │   └── feature1.flow1.spec.ts
-  │   └── feature1.flow2.spec.ts
+  │   └── feature.flow.success.spec.ts
+  │   └── feature.flow.failure.spec.ts
+  ├── pages/
+  │   └── login.page.ts
+  │   └── dashboard.page.ts
   └── utils/
       └── helper.ts
 ```
